@@ -1,4 +1,6 @@
 FROM centos
-RUN yum -y update
-RUN yum install -y git
-RUN apt-get -o Acquire::Check-Valid-Until="false" update -y
+RUN cd /etc/yum.repos.d/
+RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+RUN yum -y install java
+CMD /bin/bash
